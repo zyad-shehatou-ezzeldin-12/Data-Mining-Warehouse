@@ -85,7 +85,3 @@ The **Silver layer** focuses on medical data integrity. T-SQL scripts normalize 
 * [ ] Transition to **Parquet** file formats in the Bronze layer to optimize storage performance.
 
 ---
-
-**Author:** Zyad Shehatou  
-**Affiliation:** New Mansoura University (NMU)  
-**Role:** Data Scientist / AI & Embedded Systems Engineer
