@@ -54,17 +54,18 @@ The project is implemented within **SQL Server Management Studio (SSMS)** across
 
 ### **1. Database Initialization**
 ```sql
--- Creating the Warehouse and Medallion Schemas
-CREATE DATABASE HealthWarehouse;
-GO
-USE HealthWarehouse;
-GO
-CREATE SCHEMA Bronze;
-GO
-CREATE SCHEMA Silver;
-GO
-CREATE SCHEMA Gold;
-GO
+-- Create Database
+create database DataWarehouse;
+go
+use DataWarehouse;
+go
+
+-- Create schemas
+create schema bronze;
+go
+create schema silver;
+go
+create schema gold;
 ```
 
 ---
