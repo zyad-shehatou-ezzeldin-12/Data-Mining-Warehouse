@@ -107,7 +107,6 @@ IF OBJECT_ID('bronze.diabetes_prediction', 'U') IS NOT NULL
     DROP TABLE bronze.diabetes_prediction;
 GO
 create table bronze.diabetes_prediction(
-    PatientID int,
     gender NVARCHAR(50),
     age FLOAT,
     hypertension INT,
@@ -127,7 +126,6 @@ IF OBJECT_ID('bronze.enhanced_sleep_sdb', 'U') IS NOT NULL
 GO
 
 create table bronze.enhanced_sleep_sdb(
-PatientID int,
 Age int,
 Gender nvarchar(50),
 BMI float,
@@ -154,7 +152,6 @@ IF OBJECT_ID('bronze.sleep_apnea_dataset', 'U') IS NOT NULL
 GO
 
 create table bronze.sleep_apnea_dataset(
-PatientID int,
 Age float,
 BMI float,
 Diabetes int,
@@ -177,7 +174,6 @@ IF OBJECT_ID('bronze.sleep_health_lifestyle', 'U') IS NOT NULL
 GO
 
 create table bronze.sleep_health_lifestyle(
-    PatientID int,
     gender NVARCHAR(50),
     age INT,
     occupation NVARCHAR(50),
@@ -198,7 +194,6 @@ IF OBJECT_ID('bronze.diabetes_all_2016', 'U') IS NOT NULL
     DROP TABLE bronze.diabetes_all_2016;
 GO
 create table bronze.diabetes_all_2016(
-    PatientID int,
     ct INT,
     bpad INT,
     bpan INT,
@@ -218,7 +213,6 @@ IF OBJECT_ID('bronze.diabetes_hypertension_2016', 'U') IS NOT NULL
 GO
 
 create table bronze.diabetes_hypertension_2016(
-    PatientID int,
     ct INT,
     btpad INT,
     btpan INT,
@@ -234,7 +228,6 @@ IF OBJECT_ID('bronze.hypertension_risk', 'U') IS NOT NULL
     DROP TABLE bronze.hypertension_risk;
 GO
 create table bronze.hypertension_risk(
-    PatientID int,
     male INT,
     age INT,
     currentsmoker INT,
@@ -256,7 +249,6 @@ IF OBJECT_ID('bronze.sleep_data_sampled', 'U') IS NOT NULL
     DROP TABLE bronze.sleep_data_sampled;
 GO
 create table bronze.sleep_data_sampled(
-    PatientID int,
     gender NVARCHAR(50),
     age INT,
     occupation NVARCHAR(50),
