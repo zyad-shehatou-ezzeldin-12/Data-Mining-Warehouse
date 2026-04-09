@@ -7,8 +7,6 @@ Script Purpose:
     Covers: Sleep Apnea, Sleep Lifestyle, Sleep Disordered Breathing,
             Diabetes (detailed + prediction + 10k link), Hypertension Risk,
             Diabetes/Hypertension Aggregates (2016).
-
-    Run this script to re-define the DDL structure of Silver tables.
 ===============================================================================
 */
 
