@@ -11,7 +11,7 @@ Script Purpose:
         - CSV/Excel exports for clinical researchers
 
 Change Log:
-    [Updated] fact_patient_health_snapshot - added patient_key + Tier 1 & Tier 2
+    [Updated] fact_patient_health_snapshot - refined Tier 1 & Tier 2
               sleep apnea predictor columns.
     [Updated] mart_clinical_severity   - expanded with full PSG signal columns
     [Updated] mart_bmi_sleep_disorder  - added neck circumference & snoring averages
@@ -24,6 +24,14 @@ Usage:
     Then run DQL_gold.sql to populate them.
 ===============================================================================
 */
+
+-- ============================================================
+-- PRE-STEP: DROP fact_patient_health_snapshot
+-- Must be dropped first to remove FK constraints on dimensions
+-- ============================================================
+IF OBJECT_ID('gold.fact_patient_health_snapshot', 'U') IS NOT NULL
+    DROP TABLE gold.fact_patient_health_snapshot;
+GO
 
 -- ============================================================
 -- DIMENSION 1: dim_age_band
@@ -121,9 +129,7 @@ GO
 
 CREATE TABLE gold.fact_patient_health_snapshot (
     -- Keys
-    snapshot_id             INT IDENTITY(1,1) PRIMARY KEY,
-    record_id               INT,
-    patient_key             NVARCHAR(16),
+    patient_primarykey      NVARCHAR(50),
     age_band_id             INT REFERENCES gold.dim_age_band(age_band_id),
     bmi_cat_id              INT REFERENCES gold.dim_bmi_category(bmi_cat_id),
     -- Demographics
