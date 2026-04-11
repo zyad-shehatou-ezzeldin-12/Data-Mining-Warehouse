@@ -181,7 +181,7 @@ PRINT '>> -------------';
 --         sdb  → silver.sleep_disordered_breathing
 --         shl  → silver.sleep_health_lifestyle
 --         dd   → silver.diabetes_detailed
--- Join key: patient_key (present on all four silver tables)
+-- Join key used only for source matching (not inserted into Gold fact)
 -- ────────────────────────────────────────────────────
 SET @start_time = GETDATE();
 PRINT '>> STEP 6: Loading gold.fact_patient_health_snapshot';
@@ -278,8 +278,7 @@ GROUP BY sleep_position ORDER BY COUNT(*) DESC;
 TRUNCATE TABLE gold.fact_patient_health_snapshot;
 INSERT INTO gold.fact_patient_health_snapshot (
         -- Keys
-        record_id,
-        patient_key,
+        patient_primarykey,
         age_band_id,
         bmi_cat_id,
         -- Demographics
@@ -333,8 +332,7 @@ INSERT INTO gold.fact_patient_health_snapshot (
         bmi_category
     )
 SELECT -- Keys
-    r.record_id,
-    r.patient_key,
+    CAST(cast(r.bmi as int )AS NVARCHAR(20)) + '_' + CASE WHEN r.gender = 'Male' THEN 'm' WHEN r.gender = 'Female' THEN 'f' ELSE LOWER(LEFT(r.gender, 1)) END + '_' + CAST(CAST(r.age AS INT) AS NVARCHAR(20)) AS patient_primarykey,
     ab.age_band_id,
     bc.bmi_cat_id,
     -- Demographics
@@ -390,8 +388,8 @@ SELECT -- Keys
     ISNULL(ab.label, 'Unknown') AS age_band,
     ISNULL(bc.label, 'Unknown') AS bmi_category
 FROM silver.diabetes_sleep_link r
-    LEFT JOIN gold.dim_age_band ab ON r.age >= ab.age_min
-    AND r.age <= ab.age_max
+    LEFT JOIN gold.dim_age_band ab 
+    ON CAST(FLOOR(r.age) AS INT) BETWEEN ab.age_min AND ab.age_max
     LEFT JOIN gold.dim_bmi_category bc ON r.bmi >= bc.bmi_min
     AND r.bmi <= bc.bmi_max
     AND bc.label != 'Unknown'
